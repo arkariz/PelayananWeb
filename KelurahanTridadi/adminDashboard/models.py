@@ -47,12 +47,15 @@ class Warga(models.Model):
     rw = models.IntegerField()
     alamat = models.TextField(max_length=100)
 
+    tanggal_penanganan = models.DateField(default=date.today)
     tanggal_input = models.DateField(default=date.today)
-    waktu_input = models.TimeField(default=datetime.now().time())
+    waktu_input = models.TimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, default='Konfirmasi', max_length=25)
 
     faskes_awal = models.CharField(max_length=25, default='Puskesmas Sleman')
-    Rujukan = models.CharField(max_length=50, null=True)
+    Rujukan = models.CharField(max_length=50, blank=True, default=" ")
+    last_update = models.DateField(auto_now=True)
+    last_update_time = models.TimeField(auto_now=True)
 
     def __str__(self):
         return self.nama

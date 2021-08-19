@@ -11,19 +11,7 @@
             <div class="card-body">
                 <form method="POST" id="validationform" data-parsley-validate="" novalidate="">
                     {% csrf_token %}
-                    <div class="form-group row" style="padding-bottom:35px;">
-                        <label class="col-12 col-sm-1 col-form-label text-sm-right">Tanggal</label>
-                        <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
-                            {{ form.tanggal_penanganan }}
-                        </div>
-
-                        <label class="col-12 col-sm-3 col-form-label text-sm-right"
-                               style="margin-left:100px;">Status</label>
-                        <div class="col-sm-4 col-lg-3">
-                            {{ form.status }}
-                        </div>
-                    </div>
-
+                    <h5 class="mb-0" style="margin-left:40%;padding-bottom:25px;font-size:26px;">Update Data Pasien</h5>
                     <hr>
 
                     <div class="form-group row">

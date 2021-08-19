@@ -31,270 +31,17 @@
 </div>
 {% endfor %}
 
-<!-- Edit modal -->
-{% for warga in warga %}
-<div class="modal" tabindex="-1" id="postform{{warga.id}}">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- ============================================================== -->
-                    <!-- valifation types -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form method="POST" id="editform" data-parsley-validate="" novalidate="">
-                                    {% csrf_token %}
-                                    <div class="form-group row" style="padding-bottom:35px;">
-                                        <label class="col-12 col-sm-1 col-form-label text-sm-right">Tanggal</label>
-                                        <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
-                                            {{ form.tanggal_input }}
-                                        </div>
-
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right"
-                                               style="margin-left:100px;">Status</label>
-                                        <div class="col-sm-4 col-lg-3">
-                                            {{ form.status }}
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">NIK</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{form.nik}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Nama Lengkap</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.nama }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Jenis
-                                            Kelamin</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.jenis_kelamin }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Tanggal
-                                            Lahir</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.tanggal_lahir }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Usia</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.usia }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Nomor Kontak</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.no_kontak }}
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Padukuhan</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.padukuhan }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">RT</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.rt }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">RW</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.rw }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Alamat</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.alamat }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Fasilitas Kesehatan
-                                            Awal</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.faskes_awal }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row text-right">
-                                        <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-                                            <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                            <button class="btn btn-space btn-secondary" data-bs-dismiss="modal">Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- end valifation types -->
-                    <!-- ============================================================== -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
-
-<!-- Vertically centered scrollable modal -->
-<div class="modal" tabindex="-1" id="postform">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- ============================================================== -->
-                    <!-- valifation types -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form method="POST" id="validationform" data-parsley-validate="" novalidate="">
-                                    {% csrf_token %}
-                                    <div class="form-group row" style="padding-bottom:35px;">
-                                        <label class="col-12 col-sm-1 col-form-label text-sm-right">Tanggal</label>
-                                        <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
-                                            {{ form.tanggal_input }}
-                                        </div>
-
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right"
-                                               style="margin-left:100px;">Status</label>
-                                        <div class="col-sm-4 col-lg-3">
-                                            {{ form.status }}
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">NIK</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{form.nik}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Nama Lengkap</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.nama }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Jenis
-                                            Kelamin</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.jenis_kelamin }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Tanggal
-                                            Lahir</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.tanggal_lahir }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Usia</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.usia }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Nomor Kontak</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.no_kontak }}
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Padukuhan</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.padukuhan }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">RT</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.rt }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">RW</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.rw }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Alamat</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.alamat }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Fasilitas Kesehatan
-                                            Awal</label>
-                                        <div class="col-12 col-sm-8 col-lg-6">
-                                            {{ form.faskes_awal }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row text-right">
-                                        <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-                                            <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                            <button class="btn btn-space btn-secondary" data-bs-dismiss="modal">Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- end valifation types -->
-                    <!-- ============================================================== -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ============================================================== -->
 <!-- data table  -->
 <!-- ============================================================== -->
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Tracing Covid19 Kelurahan Tridadi</h5>
+            <h5 class="mb-0">Database Covid19 Kelurahan Tridadi</h5>
         </div>
         <div class="card-body">
-            <a href="#">
-                <button style="margin-bottom:25px;" class="btn btn-space btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#postform">Pasien
+            <a href="{% url 'data_form' %}">
+                <button style="margin-bottom:25px;" class="btn btn-space btn-primary">Pasien
                     Baru
                 </button>
             </a>
@@ -330,13 +77,12 @@
                                                 alt=""></a>
                                     </th>
                                     <th style="border:none;background-color:transparent;">
-                                        <a href="#" class="connection-item" data-bs-toggle="modal"
-                                           data-bs-target="#postform{{warga.id}}"><img style="width:20px;height:auto;"
+                                        <a href="{% url 'update_data' warga.id %}" class="connection-item"><img style="width:20px;height:auto;"
                                                                                  src="{% static 'assets/images/edit.png' %}"
                                                                                  alt=""></a>
                                     </th>
                                     <th style="border:none;background-color:transparent;">
-                                        <a href="#" class="connection-item"><img style="width:19px;height:auto;"
+                                        <a href="{% url 'penanganan' warga.id %}" class="connection-item"><img style="width:19px;height:auto;"
                                                                                  src="{% static 'assets/images/penanganan.png' %}"
                                                                                  alt=""></a>
                                     </th>
@@ -351,15 +97,32 @@
                             <p>{{warga.nama}}</p>
                             <p>NIK: {{warga.nik}}</p>
                         </td>
-                        <td>{{warga.tanggal_lahir}}</td>
+                        <td>{{warga.usia}}</td>
                         <td>{{warga.no_kontak}}</td>
                         <td>{{warga.padukuhan}}</td>
                         <td>{{warga.rt}}/{{warga.rw}}</td>
                         <td>{{warga.alamat}}</td>
-                        <td>{{warga.status}}</td>
+
+                        <td>
+                            {% if warga.status == 'Konfirmasi' %}
+                                <p style="color:#FFA500;font-weight:bold;">{{warga.status}}</p>
+                            {% elif warga.status == 'Isolasi Mandiri'%}
+                                <p style="color:#d1d113;font-weight:bold;">{{warga.status}}</p>
+                            {% elif warga.status == 'Dirawat'%}
+                                <p style="color:red;font-weight:bold;">{{warga.status}}</p>
+                            {% elif warga.status == 'Sembuh' %}
+                                <p style="color:#0da006;font-weight:bold;">{{warga.status}}</p>
+                            {% elif warga.status == 'Meninggal' %}
+                                <p style="color:#7c7c7c;font-weight:bold;">{{warga.status}}</p>
+                            {% endif %}
+                        </td>
+
                         <td>{{warga.faskes_awal}}</td>
                         <td>{{warga.Rujukan}}</td>
-                        <td>kaskask</td>
+                        <td>
+                            <p>{{warga.last_update}}</p>
+                            <p>{{warga.last_update_time}}</p>
+                        </td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -384,14 +147,4 @@
         </div>
     </div>
 </div>
-<!-- ============================================================== -->
-<!-- end data table  -->
-<!-- ============================================================== -->
-<!--<script>-->
-<!--    $(document).ready(function(){-->
-<!--        $('#formsubmit').on('click', function (){-->
-<!--        $('#validationform').trigger("reset");-->
-<!--        })-->
-<!--    });-->
-<!--</script>-->
 {% endblock content %}

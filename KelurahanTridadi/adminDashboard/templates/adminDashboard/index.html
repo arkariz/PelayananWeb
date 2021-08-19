@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'assets/vendor/charts/morris-bundle/morris.css' %}">
+
 <div class="dashboard-ecommerce">
     <div class="container-fluid dashboard-content ">
         <!-- ============================================================== -->
@@ -10,18 +12,9 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">E-commerce Dashboard Template </h2>
+                    <h2 class="pageheader-title"> Covid-19 Tracer Kelurahan Tridadi </h2>
                     <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris
                         facilisis faucibus at enim quis massa lobortis rutrum.</p>
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </div>
@@ -34,9 +27,9 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="text-muted">Total Revenue</h5>
+                            <h5 class="text-muted">Dirawat</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1">$12099</h1>
+                                <h1 class="mb-1">{{dirawat_count}}</h1>
                             </div>
                             <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                 <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
@@ -48,46 +41,114 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="text-muted">Affiliate Revenue</h5>
+                            <h5 class="text-muted">Isolasi Mandiri</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1">$12099</h1>
+                                <h1 class="mb-1">{{isoman_count}}</h1>
                             </div>
                             <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                 <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
                             </div>
                         </div>
-                        <div id="sparkline-revenue2"></div>
+                        <div id="sparkline-isoman"></div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="text-muted">Refunds</h5>
+                            <h5 class="text-muted">Sembuh</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1">0.00</h1>
+                                <h1 class="mb-1">{{sembuh_count}}</h1>
                             </div>
                             <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
                                 <span>N/A</span>
                             </div>
                         </div>
-                        <div id="sparkline-revenue3"></div>
+                        <div id="sparkline-sembuh"></div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="text-muted">Avg. Revenue Per User</h5>
+                            <h5 class="text-muted">Meninggal</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1">$28000</h1>
+                                <h1 class="mb-1">{{meninggal_count}}</h1>
                             </div>
                             <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
                                 <span>-2.00%</span>
                             </div>
                         </div>
-                        <div id="sparkline-revenue4"></div>
+                        <div id="sparkline-meninggal"></div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <!-- ============================================================== -->
+                <!-- total revenue  -->
+                <!-- ============================================================== -->
+
+
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- category revenue  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Perkembangan Kasus COVID-19 </h5>
+                        <div class="card-body">
+                            <div id="c3chart_category" style="height: 420px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end category revenue  -->
+                <!-- ============================================================== -->
+
+                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header"> Kasus Terkonformasi </h5>
+                        <div class="card-body">
+                            <div id="morris_konfirmasi"></div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="display-7 font-weight-bold"><span
+                                    class="text-primary d-inline-block">Total Kasus: {{total_count}}</span><span
+                                    class="text-success float-right">+9.45%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header"> Kasus Terkonformasi: Sembuh </h5>
+                        <div class="card-body">
+                            <div id="morris_sembuh"></div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="display-7 font-weight-bold"><span
+                                    class="text-primary d-inline-block">Total Kasus: {{sembuh_count}}</span><span
+                                    class="text-success float-right">+9.45%</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header"> Kasus Terkonformasi: Isolasi Mandiri </h5>
+                        <div class="card-body">
+                            <div id="morris_meningal"></div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="display-7 font-weight-bold"><span
+                                    class="text-primary d-inline-block">Total Kasus: {{meninggal_count}}</span><span
+                                    class="text-success float-right">+9.45%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- ============================================================== -->
 
@@ -192,24 +253,11 @@
                 <!-- ============================================================== -->
                 <!-- customer acquistion  -->
                 <!-- ============================================================== -->
-                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header">Customer Acquisition</h5>
+                        <h5 class="card-header">Penyebaran Kasus COVID-19 </h5>
                         <div class="card-body">
-                            <div class="ct-chart ct-golden-section" style="height: 354px;"></div>
-                            <div class="text-center">
-                                            <span class="legend-item mr-2">
-                                                    <span class="fa-xs text-primary mr-1 legend-tile"><i
-                                                            class="fa fa-fw fa-square-full"></i></span>
-                                            <span class="legend-text">Returning</span>
-                                            </span>
-                                <span class="legend-item mr-2">
-
-                                                    <span class="fa-xs text-secondary mr-1 legend-tile"><i
-                                                            class="fa fa-fw fa-square-full"></i></span>
-                                            <span class="legend-text">First Time</span>
-                                            </span>
-                            </div>
+                            <div id="c3chart_padukuhan" style="height: 420px;"></div>
                         </div>
                     </div>
                 </div>
@@ -416,42 +464,7 @@
                 <!-- end total orders  -->
                 <!-- ============================================================== -->
             </div>
-            <div class="row">
-                <!-- ============================================================== -->
-                <!-- total revenue  -->
-                <!-- ============================================================== -->
 
-
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- category revenue  -->
-                <!-- ============================================================== -->
-                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
-                    <div class="card">
-                        <h5 class="card-header">Revenue by Category</h5>
-                        <div class="card-body">
-                            <div id="c3chart_category" style="height: 420px;"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- end category revenue  -->
-                <!-- ============================================================== -->
-
-                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
-                    <div class="card">
-                        <h5 class="card-header"> Total Revenue</h5>
-                        <div class="card-body">
-                            <div id="morris_totalrevenue"></div>
-                        </div>
-                        <div class="card-footer">
-                            <p class="display-7 font-weight-bold"><span
-                                    class="text-primary d-inline-block">$26,000</span><span
-                                    class="text-success float-right">+9.45%</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-12">
                     <!-- ============================================================== -->
@@ -593,4 +606,219 @@
         </div>
     </div>
 </div>
+
+<!-- sparkline -->
+<script src="{% static 'assets/vendor/charts/sparkline/jquery.sparkline.js' %}"></script>
+<script src="{% static 'assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+
+<!-- morris js -->
+<script src="{% static 'assets/vendor/charts/morris-bundle/raphael.min.js' %}"></script>
+<script src="{% static 'assets/vendor/charts/morris-bundle/morris.js' %}"></script>
+
+<!-- chart c3 js -->
+<script src="{% static 'assets/vendor/charts/c3charts/c3.min.js' %}"></script>
+<script src="{% static 'assets/vendor/charts/c3charts/d3-5.4.0.min.js' %}"></script>
+<script src="{% static 'assets/vendor/charts/c3charts/C3chartjs.js' %}"></script>
+<script src="{% static 'assets/libs/js/dashboard-ecommerce.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+<script>
+    var chart = c3.generate({
+        bindto: "#c3chart_category",
+        data: {
+            columns: [
+                ['Isoman', {{isoman_count}}],
+                ['Sembuh', {{ sembuh_count }}],
+                ['Meninggal', {{ meninggal_count }}],
+                ['Dirawat', {{ dirawat_count }}],
+
+            ],
+            type: 'donut',
+
+            onclick: function(d, i) { console.log("onclick", d, i); },
+            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function(d, i) { console.log("onmouseout", d, i); },
+
+            colors: {
+                Isoman: '#e09d1f',
+                Sembuh: '#06c770',
+                Meninggal: '#40435c',
+                Dirawat: '#ff3700',
+            }
+        },
+        donut: {
+            label: {
+                show: true
+            }
+        },
+
+    });
+</script>
+
+<script>
+    var chart = c3.generate({
+        bindto: "#c3chart_padukuhan",
+        data: {
+            columns: [
+                ['Wadas', {{padukuhan.0}}],
+                ['Paten', {{ padukuhan.1 }}],
+                ['Ngemplak Caban', {{ padukuhan.2 }}],
+                ['Pangukan', {{ padukuhan.3 }}],
+                ['Beteng', {{ padukuhan.4 }}],
+                ['Pisangan', {{ padukuhan.5 }}],
+                ['Dukuh', {{ padukuhan.6 }}],
+                ['Beran Lor', {{ padukuhan.7 }}],
+                ['Josari', {{ padukuhan.8 }}],
+                ['Drono', {{ padukuhan.9 }}],
+                ['Beran Kidul', {{ padukuhan.10 }}],
+                ['Kebonagung', {{ padukuhan.11 }}],
+                ['Jaban', {{ padukuhan.12 }}],
+                ['Denggung', {{ padukuhan.13 }}],
+                ['Bangunrejo', {{ padukuhan.14 }}],
+            ],
+            type: 'donut',
+
+            onclick: function(d, i) { console.log("onclick", d, i); },
+            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function(d, i) { console.log("onmouseout", d, i); },
+        },
+        donut: {
+            label: {
+                show: true
+            }
+        },
+
+    });
+</script>
+
+<script>
+    Morris.Area({
+        element: 'morris_konfirmasi',
+        behaveLikeLine: true,
+        data: [
+            {% for i in count_perday %}
+            { x: '{{i.date_created}}', y: {{i.created_count}} },
+            {% endfor %}
+        ],
+        xkey: 'x',
+        ykeys: ['y'],
+        labels: ['konfirmasi'],
+        lineColors: ['#5969ff'],
+        xLabelFormat: function (d) {
+            return ("0" + d.getDate()).slice(-2) + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+        },
+        resize: true
+
+    });
+</script>
+
+<script>
+    Morris.Area({
+        element: 'morris_sembuh',
+        behaveLikeLine: true,
+        data: [
+            {% for i in sembuh_perday %}
+            { x: '{{i.date_created}}', y: {{i.created_count}} },
+            {% endfor %}
+        ],
+        xkey: 'x',
+        ykeys: ['y'],
+        labels: ['Sembuh'],
+        lineColors: ['#5969ff'],
+        xLabelFormat: function (d) {
+            return ("0" + d.getDate()).slice(-2) + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+        },
+        resize: true
+
+    });
+</script>
+
+<script>
+    Morris.Area({
+        element: 'morris_meningal',
+        behaveLikeLine: true,
+        data: [
+            {% for i in meninggal_perday %}
+            { x: '{{i.date_created}}', y: {{i.created_count}} },
+            {% endfor %}
+        ],
+        xkey: 'x',
+        ykeys: ['y'],
+        labels: ['Meninggal'],
+        lineColors: ['#5969ff'],
+        xLabelFormat: function (d) {
+            return ("0" + d.getDate()).slice(-2) + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+        },
+        resize: true
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function() {
+
+        $("#sparkline-revenue").sparkline([{% for i in dirawat_perday %} {{ i.created_count }}, {% endfor %}], {
+            type: 'line',
+            width: '99.5%',
+            height: '100',
+            lineColor: '#ff3700',
+            fillColor: '#ff9d8a',
+            lineWidth: 2,
+            spotColor: '#ba2618',
+            minSpotColor: undefined,
+            maxSpotColor: undefined,
+            highlightSpotColor: undefined,
+            highlightLineColor: '#ba2618',
+            resize: true
+        });
+
+        $("#sparkline-isoman").sparkline([{% for i in isoman_perday %} {{ i.created_count }}, {% endfor %}], {
+            type: 'line',
+            width: '99.5%',
+            height: '100',
+            lineColor: '#ff660d',
+            fillColor: '#ffd4a6',
+            lineWidth: 2,
+            spotColor: undefined,
+            minSpotColor: undefined,
+            maxSpotColor: undefined,
+            highlightSpotColor: undefined,
+            highlightLineColor: undefined,
+            resize: true
+        });
+
+        $("#sparkline-sembuh").sparkline([{% for i in sembuh_perday %} {{ i.created_count }}, {% endfor %}], {
+            type: 'line',
+            width: '99.5%',
+            height: '100',
+            lineColor: '#06c770',
+            fillColor: '#82ffc7',
+            lineWidth: 2,
+            spotColor: undefined,
+            minSpotColor: undefined,
+            maxSpotColor: undefined,
+            highlightSpotColor: undefined,
+            highlightLineColor: undefined,
+            resize: true
+        });
+
+        $("#sparkline-meninggal").sparkline([{% for i in meninggal_perday %} {{ i.created_count }}, {% endfor %}], {
+            type: 'line',
+            width: '99.5%',
+            height: '100',
+            lineColor: '#4b5575',
+            fillColor: '#9d9fa8',
+            lineWidth: 2,
+            spotColor: undefined,
+            minSpotColor: undefined,
+            maxSpotColor: undefined,
+            highlightSpotColor: undefined,
+            highlightLineColor: undefined,
+            resize: true,
+        });
+
+    });
+</script>
 {% endblock content %}

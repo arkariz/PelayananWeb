@@ -1,0 +1,50 @@
+{% extends "adminDashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <!-- ============================================================== -->
+    <!-- valifation types -->
+    <!-- ============================================================== -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" id="validationform" data-parsley-validate="" novalidate="">
+                    {% csrf_token %}
+
+                    <h5 class="mb-0" style="margin-top:15px;margin-left:40%;padding-bottom:25px;font-size:26px;">Penanganan Pasien</h5>
+                    <hr style="margin-bottom:140px;">
+
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            {{form.status}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Tanggal</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            {{form.tanggal_penanganan}}
+                        </div>
+                    </div>
+                    <div class="form-group row" style="display:none", id="rujukan">
+                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Rumah Sakit Rujukan</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            {{ form.Rujukan }}
+                        </div>
+                    </div>
+                    <div class="form-group row text-right">
+                        <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+                            <button type="submit" class="btn btn-space btn-primary" formnovalidate="formnovalidate">Submit</button>
+                            <a href="{% url 'database' %}" class="btn btn-space btn-secondary">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end valifation types -->
+    <!-- ============================================================== -->
+</div>
+{% endblock content %}
