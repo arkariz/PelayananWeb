@@ -58,4 +58,4 @@ class Warga(models.Model):
     last_update_time = models.TimeField(auto_now=True)
 
     def __str__(self):
-        return self.nama
+        return self.padukuhan

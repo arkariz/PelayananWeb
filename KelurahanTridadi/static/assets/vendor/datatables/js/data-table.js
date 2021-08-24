@@ -14,9 +14,9 @@ jQuery(document).ready(function($) {
 
         $(document).ready(function() {
             var table = $('table.second').DataTable({
-                lengthChange: false,
                 buttons: ['copy', 'excel', 'pdf', 'print', 'colvis'],
-                order: [[ 1, "desc" ]]
+                order: [[ 1, "desc" ]],
+                fixedHeader: true
             });
 
             table.buttons().container()

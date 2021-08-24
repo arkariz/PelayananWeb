@@ -19,7 +19,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
 
                 <a href="{% url 'delete_item' warga.id %}">
                     <button type="submit" class="btn btn-secondary">Hapus</button>
@@ -70,8 +70,8 @@
                             <table style="border-spacing:1px;">
                                 <tr style="border:none;background-color:transparent;">
                                     <th style="border:none;background-color:transparent;">
-                                        <a href="#" class="connection-item" data-bs-toggle="modal"
-                                           data-bs-target="#deleteModal{{warga.id}}"><img
+                                        <a href="#" class="connection-item" data-toggle="modal"
+                                           data-target="#deleteModal{{warga.id}}"><img
                                                 style="width:17px;height:auto;"
                                                 src="{% static 'assets/images/trash.png' %}"
                                                 alt=""></a>
