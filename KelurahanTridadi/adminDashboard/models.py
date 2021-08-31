@@ -59,3 +59,6 @@ class Warga(models.Model):
 
     def __str__(self):
         return self.padukuhan
+
+class Penanganan(models.Model):
+
