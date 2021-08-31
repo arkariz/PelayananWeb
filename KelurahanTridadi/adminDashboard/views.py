@@ -119,7 +119,6 @@ def admindashboard(request):
     denggung_meninggal = Warga.objects.filter(padukuhan='Denggung', status='Meninggal').count
     bangunrejo_meninggal = Warga.objects.filter(padukuhan='Bangunrejo', status='Meninggal').count
 
-
     padukuhan_dirawat = (wadas_dirawat,
                          paten_dirawat,
                          ngemplak_dirawat,
@@ -137,20 +136,20 @@ def admindashboard(request):
                          bangunrejo_dirawat)
 
     padukuhan_isoman = (wadas_isoman,
-                         paten_isoman,
-                         ngemplak_isoman,
-                         pangukan_isoman,
-                         beteng_isoman,
-                         pisangan_isoman,
-                         dukuh_isoman,
-                         beranlor_isoman,
-                         josari_isoman,
-                         drono_isoman,
-                         berankidul_isoman,
-                         kebonagung_isoman,
-                         jaban_isoman,
-                         denggung_isoman,
-                         bangunrejo_isoman)
+                        paten_isoman,
+                        ngemplak_isoman,
+                        pangukan_isoman,
+                        beteng_isoman,
+                        pisangan_isoman,
+                        dukuh_isoman,
+                        beranlor_isoman,
+                        josari_isoman,
+                        drono_isoman,
+                        berankidul_isoman,
+                        kebonagung_isoman,
+                        jaban_isoman,
+                        denggung_isoman,
+                        bangunrejo_isoman)
 
     padukuhan_sembuh = (wadas_sembuh,
                         paten_sembuh,
@@ -169,20 +168,20 @@ def admindashboard(request):
                         bangunrejo_sembuh)
 
     padukuhan_meninggal = (wadas_meninggal,
-                         paten_meninggal,
-                         ngemplak_meninggal,
-                         pangukan_meninggal,
-                         beteng_meninggal,
-                         pisangan_meninggal,
-                         dukuh_meninggal,
-                         beranlor_meninggal,
-                         josari_meninggal,
-                         drono_meninggal,
-                         berankidul_meninggal,
-                         kebonagung_meninggal,
-                         jaban_meninggal,
-                         denggung_meninggal,
-                         bangunrejo_meninggal)
+                           paten_meninggal,
+                           ngemplak_meninggal,
+                           pangukan_meninggal,
+                           beteng_meninggal,
+                           pisangan_meninggal,
+                           dukuh_meninggal,
+                           beranlor_meninggal,
+                           josari_meninggal,
+                           drono_meninggal,
+                           berankidul_meninggal,
+                           kebonagung_meninggal,
+                           jaban_meninggal,
+                           denggung_meninggal,
+                           bangunrejo_meninggal)
 
     padukuhan_list = (Wadas,
                       Paten,
@@ -223,7 +222,11 @@ def admindashboard(request):
 @login_required
 def database(request):
     warga = Warga.objects.all()
-    context = {'warga': warga}
+    penanganan = Penanganan.objects.all()
+    context = {
+        'warga': warga,
+        'penanganan': penanganan
+    }
 
     return render(request, 'adminDashboard/database.html', context)
 
@@ -235,6 +238,12 @@ def dataform(request):
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
+            warga = Warga.objects.last()
+            penanganan = Penanganan(warga=warga,
+                                    status=warga.status,
+                                    Rujukan=warga.Rujukan,
+                                    tanggal_penanganan=warga.tanggal_penanganan)
+            penanganan.save()
             return redirect('/database/')
 
     context = {'form': form}
@@ -260,16 +269,28 @@ def updatedata(request, pk):
 @login_required
 def penanganandata(request, pk):
     warga = Warga.objects.get(id=pk)
-    form = PenangananForm(instance=warga)
+    form = PenangananForm(
+        initial={
+            "status": warga.status,
+            "tanggal_penanganan": warga.tanggal_penanganan,
+            "Rujukan": warga.Rujukan
+        }
+    )
     if request.method == "POST":
-        form = PenangananForm(request.POST, instance=warga)
-        print("TESTING", form.is_valid())
-        print(request.POST)
+        form = PenangananForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/database')
+            instance = form.save(commit=False)
+            instance.warga = warga
 
-    context = {'form': form}
+            warga.status = instance.status
+            warga.tanggal_penanganan = instance.tanggal_penanganan
+            warga.save()
+            instance.save()
+            return redirect('/database')
+        else:
+            print(form.errors)
+
+    context = {'form': form, 'warga': warga}
 
     return render(request, 'adminDashboard/penanganan_form.html', context)
 

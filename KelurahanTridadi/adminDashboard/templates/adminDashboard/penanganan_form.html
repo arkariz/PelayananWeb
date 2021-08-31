@@ -13,7 +13,10 @@
                     {% csrf_token %}
 
                     <h5 class="mb-0" style="margin-top:15px;margin-left:40%;padding-bottom:25px;font-size:26px;">Penanganan Pasien</h5>
-                    <hr style="margin-bottom:140px;">
+                    <hr style="margin-bottom:50px;">
+
+                    <H2 style="text-align:center; font-size:24px">{{warga.nama}}</H2>
+                    <p style="text-align:center; font-size:15px">NIK: {{warga.nik}}</p>
 
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
@@ -27,12 +30,21 @@
                             {{form.tanggal_penanganan}}
                         </div>
                     </div>
-                    <div class="form-group row" style="display:none", id="rujukan">
-                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Rumah Sakit Rujukan</label>
-                        <div class="col-12 col-sm-8 col-lg-6">
-                            {{ form.Rujukan }}
+                    {% if warga.status == "Dirawat" %}
+                        <div class="form-group row" id="rujukan">
+                            <label class="col-12 col-sm-3 col-form-label text-sm-right">Rumah Sakit Rujukan</label>
+                            <div class="col-12 col-sm-8 col-lg-6">
+                                {{ form.Rujukan }}
+                            </div>
                         </div>
-                    </div>
+                    {% elif warga.status != "Dirawat" %}
+                        <div class="form-group row" style="display:none;" id="rujukan">
+                            <label class="col-12 col-sm-3 col-form-label text-sm-right">Rumah Sakit Rujukan</label>
+                            <div class="col-12 col-sm-8 col-lg-6">
+                                {{ form.Rujukan }}
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="form-group row text-right">
                         <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
                             <button type="submit" class="btn btn-space btn-primary" formnovalidate="formnovalidate">Submit</button>

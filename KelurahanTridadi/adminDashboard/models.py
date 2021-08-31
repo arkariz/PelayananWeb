@@ -1,8 +1,7 @@
 from django.db import models
-from datetime import date, datetime
+from datetime import date
 
 
-# Create your models here.
 class Warga(models.Model):
     GENDER_CHOICES = (
         ('Laki-laki', 'Laki-laki'),
@@ -58,7 +57,20 @@ class Warga(models.Model):
     last_update_time = models.TimeField(auto_now=True)
 
     def __str__(self):
-        return self.padukuhan
+        return self.nama
+
 
 class Penanganan(models.Model):
 
+    STATUS_CHOICES = (
+        ('Konfirmasi', 'Konfirmasi'),
+        ('Isolasi Mandiri', 'Isolasi Mandiri'),
+        ('Dirawat', 'Dirawat'),
+        ('Sembuh', 'Sembuh'),
+        ('Meninggal', 'Meninggal')
+    )
+
+    warga = models.ForeignKey(Warga, on_delete=models.CASCADE)
+    status = models.CharField(choices=STATUS_CHOICES, default='Konfirmasi', max_length=25)
+    tanggal_penanganan = models.DateField(default=date.today)
+    Rujukan = models.CharField(max_length=50, blank=True, default=" ")

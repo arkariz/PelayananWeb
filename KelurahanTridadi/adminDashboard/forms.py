@@ -1,5 +1,5 @@
 from django import forms
-from .models import Warga
+from .models import Warga, Penanganan
 
 
 class DateInput(forms.DateInput):
@@ -23,6 +23,7 @@ class PostForm(forms.ModelForm):
             'alamat',
             'tanggal_penanganan',
             'status',
+            'Rujukan',
             'faskes_awal',
         )
 
@@ -48,7 +49,9 @@ class PostForm(forms.ModelForm):
             'alamat': forms.Textarea(
                 attrs={'class': 'form-control', 'type': "text", 'required': ""}),
             'status': forms.Select(
-                attrs={'class': "form-control", 'type': "text", 'required': ""}),
+                attrs={'class': "form-control", 'id': "select_status", 'type': "text", 'required': ""}),
+            'Rujukan': forms.TextInput(
+                attrs={'class': 'form-control', 'type': "text", 'required': ""}),
             'faskes_awal': forms.TextInput(
                 attrs={'class': 'form-control', 'type': "text", 'required': ""}),
         }
@@ -99,12 +102,13 @@ class UpdateForm(forms.ModelForm):
 
 class PenangananForm(forms.ModelForm):
     class Meta:
-        model = Warga
-        fields = (
+        model = Penanganan
+        exclude = ('warga',)
+        fields = [
             'status',
             'Rujukan',
             'tanggal_penanganan'
-        )
+        ]
 
         widgets = {
             'status': forms.Select(
