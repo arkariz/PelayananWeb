@@ -319,6 +319,46 @@
                 <!-- end customer acquistion  -->
                 <!-- ============================================================== -->
             </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header"> Vaksinasi Pertama </h5>
+                        <div class="card-body">
+                            <div id="morris_vaksin_pertama"></div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="display-7 font-weight-bold"><span
+                                    class="text-primary d-inline-block">Total: {{vaksin_pertama_count}}</span><span
+                                    class="text-success float-right"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header"> Vaksin Kedua </h5>
+                        <div class="card-body">
+                            <div id="morris_vaksin_kedua"></div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="display-7 font-weight-bold"><span
+                                    class="text-primary d-inline-block">Total: {{vaksin_kedua_count}}</span><span
+                                    class="text-success float-right"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Perkembangan Vaksinasi COVID-19 </h5>
+                        <div class="card-body">
+                            <div id="c3chart_jenis_vaksin" style="height: 420px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -375,6 +415,35 @@
 
 <script>
     var chart = c3.generate({
+        bindto: "#c3chart_jenis_vaksin",
+        data: {
+            columns: [
+                ['Sinovac', {{sinovac}}],
+                ['Moderna', {{ moderna }}],
+                ['PFIZER', {{ pfizer }}],
+                ['Bio Farma', {{ biofarma }}],
+                ['AstraZeneca', {{astra}}],
+                ['Sinopharm', {{sinopharm}}],
+
+            ],
+            type: 'donut',
+
+            onclick: function(d, i) { console.log("onclick", d, i); },
+            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function(d, i) { console.log("onmouseout", d, i); },
+
+        },
+        donut: {
+            label: {
+                show: true
+            }
+        },
+
+    });
+</script>
+
+<script>
+    var chart = c3.generate({
         bindto: "#c3chart_padukuhan",
         data: {
             columns: [
@@ -405,6 +474,48 @@
                 show: true
             }
         },
+
+    });
+</script>
+
+<script>
+    Morris.Area({
+        element: 'morris_vaksin_pertama',
+        behaveLikeLine: true,
+        data: [
+            {% for i in vaksin_pertama_count_perday %}
+            { x: '{{i.date_created}}', y: {{i.created_count}} },
+            {% endfor %}
+        ],
+        xkey: 'x',
+        ykeys: ['y'],
+        labels: ['Vaksin Pertama'],
+        lineColors: ['#5969ff'],
+        xLabelFormat: function (d) {
+            return ("0" + d.getDate()).slice(-2) + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+        },
+        resize: true
+
+    });
+</script>
+
+<script>
+    Morris.Area({
+        element: 'morris_vaksin_kedua',
+        behaveLikeLine: true,
+        data: [
+            {% for i in vaksin_kedua_count_perday %}
+            { x: '{{i.date_created}}', y: {{i.created_count}} },
+            {% endfor %}
+        ],
+        xkey: 'x',
+        ykeys: ['y'],
+        labels: ['Vaksin Kedua'],
+        lineColors: ['#5969ff'],
+        xLabelFormat: function (d) {
+            return ("0" + d.getDate()).slice(-2) + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+        },
+        resize: true
 
     });
 </script>

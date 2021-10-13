@@ -1,0 +1,137 @@
+{% extends "adminDashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+{% for vaksinasi in vaksinasi %}
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal{{vaksinasi.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus data:</p>
+
+                <p style="margin-bottom:4px;">Nama: {{vaksinasi.nama}}</p>
+                <p style="margin-bottom:4px;">NIK: {{vaksinasi.nik}}</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+
+                <a href="{% url 'delete_vaksinasi' vaksinasi.id %}">
+                    <button type="submit" class="btn btn-secondary">Hapus</button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- ============================================================== -->
+<!-- data table  -->
+<!-- ============================================================== -->
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Vaksinasi Covid19 Kelurahan Tridadi</h5>
+        </div>
+        <div class="card-body">
+            <a href="{% url 'vaksinasi_form' %}">
+                <button style="margin-bottom:25px;" class="btn btn-space btn-primary">Pasien
+                    Baru
+                </button>
+            </a>
+            <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Aksi</th>
+                        <th>Tanggal Terdaftar</th>
+                        <th>Nama</th>
+                        <th>Usia</th>
+                        <th>No. Kontak</th>
+                        <th>Padukuhan</th>
+                        <th>RT/RW</th>
+                        <th>Alamat Lengkap</th>
+                        <th>Jenis Vaksin</th>
+                        <th>Faskes Vaksin</th>
+                        <th>Vaksin Pertama</th>
+                        <th>Vaksin Kedua</th>
+                        <th>Last Update</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for vaksinasi in vaksinasi %}
+                    <tr>
+                        <td>
+                            <table style="border-spacing:1px;">
+                                <tr style="border:none;background-color:transparent;">
+                                    <th style="border:none;background-color:transparent;">
+                                        <a href="#" class="connection-item" data-toggle="modal"
+                                           data-target="#deleteModal{{vaksinasi.id}}"><img
+                                                style="width:17px;height:auto;"
+                                                src="{% static 'assets/images/trash.png' %}"
+                                                alt=""></a>
+                                    </th>
+                                    <th style="border:none;background-color:transparent;">
+                                        <a href="{% url 'update_vaksinasi' vaksinasi.id %}" class="connection-item"><img style="width:20px;height:auto;"
+                                                                                 src="{% static 'assets/images/edit.png' %}"
+                                                                                 alt=""></a>
+                                    </th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <p>{{vaksinasi.tanggal_input}}</p>
+                        </td>
+                        <td>
+                            <p>{{vaksinasi.nama}}</p>
+                            <p>NIK: {{vaksinasi.nik}}</p>
+                        </td>
+                        <td>{{vaksinasi.usia}}</td>
+                        <td>{{vaksinasi.no_kontak}}</td>
+                        <td>{{vaksinasi.padukuhan}}</td>
+                        <td>{{vaksinasi.rt}}/{{vaksinasi.rw}}</td>
+                        <td>{{vaksinasi.alamat}}</td>
+                        <td>{{vaksinasi.jenis_vaksin}}</td>
+                        <td>{{vaksinasi.faskes}}</td>
+                        <td><p style="color:green;font-weight:bold;">{{vaksinasi.tanggal_vaksin_pertama}}</p></td>
+                        <td>{% if vaksinasi.tanggal_vaksin_kedua == null %}
+                                <p style="color:red;font-weight:bold;">Belum Vaksin</p></td>
+                            {% else %}
+                                <p style="color:green;font-weight:bold;">{{vaksinasi.tanggal_vaksin_kedua}}</p>
+                            {% endif %}
+                        <td>
+                            <p>{{vaksinasi.last_update}}</p>
+                            <p>{{vaksinasi.last_update_time}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Aksi</th>
+                        <th>Tanggal Terdaftar</th>
+                        <th>Nama</th>
+                        <th>Usia</th>
+                        <th>No. Kontak</th>
+                        <th>Padukuhan</th>
+                        <th>RT/RW</th>
+                        <th>Alamat Lengkap</th>
+                        <th>Jenis Vaksin</th>
+                        <th>Faskes Vaksin</th>
+                        <th>Vaksin Pertama</th>
+                        <th>Vaksin Kedua</th>
+                        <th>Last Update</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

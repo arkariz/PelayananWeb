@@ -1,6 +1,6 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect
-from .forms import PostForm, UpdateForm, PenangananForm
+from .forms import PostForm, UpdateForm, PenangananForm, VaksinasiForm
 from .models import *
 
 from django.contrib.auth.decorators import login_required
@@ -33,6 +33,9 @@ def admindashboard(request):
         .values('date_created') \
         .annotate(created_count=Count('id'))
 
+    print(dirawat_count_perday)
+    tes = Warga.objects.all()
+    print(tes)
     konfirmasi_count = Warga.objects.all().count
     isoman_count = Warga.objects.filter(status='Isolasi Mandiri').count
     sembuh_count = Warga.objects.filter(status='Sembuh').count
@@ -199,6 +202,26 @@ def admindashboard(request):
                       Denggung,
                       Bangunrejo)
 
+    vaksin_pertama_count = Vaksinasi.objects.filter(tanggal_vaksin_pertama__isnull=False).count
+    vaksin_kedua_count = Vaksinasi.objects.filter(tanggal_vaksin_kedua__isnull=False).count
+
+    vaksin_pertama_count_perday = Vaksinasi.objects.filter(tanggal_vaksin_pertama__isnull=False) \
+        .extra({'date_created': "date(tanggal_vaksin_pertama)"}) \
+        .values('date_created') \
+        .annotate(created_count=Count('id'))
+
+    vaksin_kedua_count_perday = Vaksinasi.objects.filter(tanggal_vaksin_kedua__isnull=False) \
+        .extra({'date_created': "date(tanggal_vaksin_kedua)"}) \
+        .values('date_created') \
+        .annotate(created_count=Count('id'))
+
+    sinovac_count = Vaksinasi.objects.filter(jenis_vaksin="SINOVAC").count
+    biofarma_count = Vaksinasi.objects.filter(jenis_vaksin="BIO FARMA").count
+    astra_count = Vaksinasi.objects.filter(jenis_vaksin="Astra Zeneca").count
+    moderna_count = Vaksinasi.objects.filter(jenis_vaksin="MODERNA").count
+    sinopharm_count = Vaksinasi.objects.filter(jenis_vaksin="SINOPHARM").count
+    pfizer_count = Vaksinasi.objects.filter(jenis_vaksin="PFIZER").count
+
     context = {
         'count_perday': konfirmasi_count_perday,
         'isoman_perday': isoman_count_perday,
@@ -214,7 +237,17 @@ def admindashboard(request):
         'padukuhan_dirawat': padukuhan_dirawat,
         'padukuhan_isoman': padukuhan_isoman,
         'padukuhan_sembuh': padukuhan_sembuh,
-        'padukuhan_meninggal': padukuhan_meninggal
+        'padukuhan_meninggal': padukuhan_meninggal,
+        'vaksin_pertama_count': vaksin_pertama_count,
+        'vaksin_kedua_count': vaksin_kedua_count,
+        'vaksin_pertama_count_perday': vaksin_pertama_count_perday,
+        'vaksin_kedua_count_perday': vaksin_kedua_count_perday,
+        'sinovac': sinovac_count,
+        'moderna': moderna_count,
+        'biofarma': biofarma_count,
+        'astra': astra_count,
+        'sinopharm': sinopharm_count,
+        'pfizer': pfizer_count
     }
     return render(request, 'adminDashboard/index.html', context)
 
@@ -299,3 +332,48 @@ def deleteData(request, pk):
     warga = Warga.objects.get(id=pk)
     warga.delete()
     return redirect('/database/')
+
+
+@login_required
+def dataVaksinasi(request):
+    vaksinasi = Vaksinasi.objects.all()
+    context = {
+        'vaksinasi': vaksinasi,
+    }
+
+    return render(request, 'adminDashboard/vaksinasi.html', context)
+
+
+@login_required
+def vaksinasiform(request):
+    form = VaksinasiForm()
+    if request.method == "POST":
+        form = VaksinasiForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/vaksinasi/')
+
+    context = {'form': form}
+
+    return render(request, 'adminDashboard/vaksinasi_form.html', context)
+
+
+@login_required
+def updateVaksinasi(request, pk):
+    vaksinasi = Vaksinasi.objects.get(id=pk)
+    form = VaksinasiForm(instance=vaksinasi)
+    if request.method == "POST":
+        form = VaksinasiForm(request.POST, instance=vaksinasi)
+        if form.is_valid():
+            form.save()
+            return redirect('/vaksinasi/')
+
+    context = {'form': form}
+
+    return render(request, 'adminDashboard/vaksinasi_form.html', context)
+
+
+def deleteVaksin(request, pk):
+    warga = Vaksinasi.objects.get(id=pk)
+    warga.delete()
+    return redirect('/vaksinasi/')
