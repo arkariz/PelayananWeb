@@ -1,12 +1,11 @@
 {% load static %}
-{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Login V10</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="{% static 'login/images/Sleman.png' %}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -16,13 +15,13 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/css-hamburgers/hamburgers.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animsition/css/animsition.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
@@ -30,7 +29,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-10 p-b-15">
@@ -40,18 +39,18 @@
 						<img src="{% static 'login/images/Sleman.png' %}" style="height:200px;">
 					</span>
 
-					
+
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
 						{% render_field form.username class="input100" placeholder="Username" %}
 						<span class="focus-input100"></span>
 					</div>
-					
-					
+
+
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
 						{% render_field form.password class="input100" placeholder="Password" %}
 						<span class="focus-input100"></span>
 					</div>
-					
+
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
@@ -83,10 +82,10 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div id="dropDownSelect1"></div>
-	
+
 <!--===============================================================================================-->
 	<script src="{% static 'login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->
