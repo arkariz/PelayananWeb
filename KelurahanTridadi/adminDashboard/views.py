@@ -217,7 +217,7 @@ def admindashboard(request):
 
     sinovac_count = Vaksinasi.objects.filter(jenis_vaksin="SINOVAC").count
     biofarma_count = Vaksinasi.objects.filter(jenis_vaksin="BIO FARMA").count
-    astra_count = Vaksinasi.objects.filter(jenis_vaksin="Astra Zeneca").count
+    astra_count = Vaksinasi.objects.filter(jenis_vaksin="AstraZeneca").count
     moderna_count = Vaksinasi.objects.filter(jenis_vaksin="MODERNA").count
     sinopharm_count = Vaksinasi.objects.filter(jenis_vaksin="SINOPHARM").count
     pfizer_count = Vaksinasi.objects.filter(jenis_vaksin="PFIZER").count
